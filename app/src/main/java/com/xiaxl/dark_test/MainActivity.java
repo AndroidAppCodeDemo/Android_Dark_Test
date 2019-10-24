@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     // 当前 Android系统主题 配置
     // (举例 Configuration.UI_MODE_NIGHT_NO Configuration.UI_MODE_NIGHT_YES)
     private int mSysThemeConfig = -1;
-
     // 当前 APP主题 设置
     private int mAppThemeMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
 
@@ -38,29 +37,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /**
-         * 当前 Android系统主题 配置
-         * (举例 Configuration.UI_MODE_NIGHT_NO Configuration.UI_MODE_NIGHT_YES)
-         */
-        Configuration configuration = getResources().getConfiguration();
-        mSysThemeConfig = configuration.uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
-
-        /**
-         * UI
-         */
-        mThemeTv = findViewById(R.id.theme_tv);
-        mChangeTv = findViewById(R.id.change_tv);
-
-        // 手动切换主题
-        mChangeTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 手动切换主题
-                toggleTheme();
-            }
-        });
-        //
+        // 初始化系统配置数据
+        initSystemConfig();
+        // 初始化UI
+        initUI();
+        // 展示主题相关配置信息
         updateThemeInfo();
 
     }
@@ -99,11 +80,7 @@ public class MainActivity extends AppCompatActivity {
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         Log.e("xiaxl: ", "--- onConfigurationChanged ---");
         super.onConfigurationChanged(newConfig);
-
         mSysThemeConfig = newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
-        Log.e("xiaxl: ", "mSysThemeConfig: " + mSysThemeConfig);
-
         switch (mSysThemeConfig) {
             // Night mode is not active, we're using the light theme
             case Configuration.UI_MODE_NIGHT_NO:
@@ -114,13 +91,42 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("xiaxl: ", "UI_MODE_NIGHT_YES");
                 break;
         }
-
         // 更新主题配置信息
         updateThemeInfo();
 
     }
 
 
+    /**
+     * 当前 Android系统主题 配置
+     * (举例 Configuration.UI_MODE_NIGHT_NO Configuration.UI_MODE_NIGHT_YES)
+     */
+    public void initSystemConfig() {
+        Configuration configuration = getResources().getConfiguration();
+        mSysThemeConfig = configuration.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    }
+
+
+    /**
+     * UI
+     */
+    public void initUI() {
+        mThemeTv = findViewById(R.id.theme_tv);
+        mChangeTv = findViewById(R.id.change_tv);
+
+        // 手动切换主题
+        mChangeTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 手动切换主题
+                toggleTheme();
+            }
+        });
+    }
+
+    /**
+     * 展示当前主题配置信息
+     */
     public void updateThemeInfo() {
         // 新建StringBuffer
         StringBuffer sb = new StringBuffer();
