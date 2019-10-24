@@ -1,8 +1,6 @@
 
 # Android Q 深色主题举例
 
-@(CSDN)[Android代码]
-
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191024162846475.gif)
 
 了解深色主题如何应用，第一手资料是 [官方文档](https://developer.android.com/guide/topics/ui/look-and-feel/darktheme) 与 相应的 [Google Sample](https://github.com/googlearchive/android-DarkTheme) 
