@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#D81B60</color>
-    <color name="test_text">#008577</color>
+    <color name="colorPrimary">@android:color/black</color>
 
-    <color name="test_bg">#008577</color>
+
+    <color name="test_layout_bg">@android:color/black</color>
+
+    <color name="test_text_bg">#D81B60</color>
+    <color name="test_text">@android:color/white</color>
+
+
 </resources>
