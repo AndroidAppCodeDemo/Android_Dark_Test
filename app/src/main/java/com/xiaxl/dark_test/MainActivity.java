@@ -81,16 +81,11 @@ public class MainActivity extends AppCompatActivity {
         Log.e("xiaxl: ", "--- onConfigurationChanged ---");
         super.onConfigurationChanged(newConfig);
         mSysThemeConfig = newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        switch (mSysThemeConfig) {
-            // Night mode is not active, we're using the light theme
-            case Configuration.UI_MODE_NIGHT_NO:
-                Log.e("xiaxl: ", "UI_MODE_NIGHT_NO");
-                break;
-            // Night mode is active, we're using dark theme
-            case Configuration.UI_MODE_NIGHT_YES:
-                Log.e("xiaxl: ", "UI_MODE_NIGHT_YES");
-                break;
-        }
+
+        // 根据系统配置，切换到对应的主题
+        toggleThemeBySystemConfig();
+
+
         // 更新主题配置信息
         updateThemeInfo();
 
@@ -178,6 +173,29 @@ public class MainActivity extends AppCompatActivity {
         if (mThemeTv != null) {
             mThemeTv.setText(sb.toString());
         }
+    }
+
+
+    /**
+     * 根据系统配置 切换主题
+     */
+    public void toggleThemeBySystemConfig() {
+        switch (mSysThemeConfig) {
+            // Night mode is not active, we're using the light theme
+            case Configuration.UI_MODE_NIGHT_NO:
+                // 亮色
+                AppCompatDelegate appCompatDelegate = getDelegate();
+                appCompatDelegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            // Night mode is active, we're using dark theme
+            case Configuration.UI_MODE_NIGHT_YES:
+                // 深色
+                appCompatDelegate = getDelegate();
+                appCompatDelegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+        }
+        // 应用主题
+        recreate();
     }
 
 
